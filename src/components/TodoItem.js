@@ -1,6 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components';
 import { MdDone, MdDelete } from 'react-icons/md';
+import { useTodoDispatch } from './TodoContext';
 
 const CheckCircle = styled.div`
     width: 32px;
@@ -56,12 +57,30 @@ const TodoItemBlock = styled.div`
 `;
 
 function TodoItem({ id, done, text }) {
+    const dispatch = useTodoDispatch();
+    const onToggle = () => dispatch({
+        type: 'TOGGLE',
+        id
+    })
+    const onRemove = () => dispatch({
+        type: 'REMOVE',
+        id
+    })
     return (
         <TodoItemBlock>
-            <CheckCircle done={done}>{done && <MdDone />}</CheckCircle>
-            <Text done={done}>{text}</Text>
+            <CheckCircle done={done} onClick={onToggle}>
+                {done && <MdDone />}
+            </CheckCircle>
+            <Text done={done}>
+                {text}
+            </Text>
+            <Remove onClick={onRemove}>
+                <MdDelete />
+            </Remove>
         </TodoItemBlock>
     )
 }
 
-export default TodoItem
+//useTodoDispatch를 사용했기 때문에, component 최적화를 사용할 수 있다.
+//만약 useTodo로 state와 dispatch를 둘 다 관리했다면 done과 undone모두 영향을 미쳤을 것.
+export default React.memo(TodoItem);
