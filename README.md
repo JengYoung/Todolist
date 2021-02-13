@@ -1,3 +1,10 @@
+## Create / Read / Update / Delete 기능 구현
+
+1. input 입력을 통한 Create 기능 구현
+2. 각 todo에 대한 Delete 기능 구현
+3. Create/Delete에 따라 계속해서 todo filtering
+   3.react.memo를 통한 상태 관리 최적화
+
 ## Todolist context 상태 관리 기능 추가
 
 ### 목표
